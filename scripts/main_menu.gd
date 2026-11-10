@@ -2,7 +2,7 @@ extends Control
 
 ## MAGICOPALYPSE main menu.
 ## Hanging signs swing on pendulum physics and drop in with a spring,
-## clouds drift by, corner icon buttons mute sound / stub settings,
+## clouds drift by, corner icon button mutes sound,
 ## and every interaction is backed by CC0 UI sounds (Kenney Interface Sounds).
 
 const SFX_SELECT: Array[AudioStream] = [
@@ -54,8 +54,6 @@ func _ready() -> void:
 		btn.pressed.connect(_on_menu_btn_pressed.bind(btn))
 	%SoundBtn.mouse_entered.connect(_play_hover_sfx)
 	%SoundBtn.toggled.connect(_on_sound_toggled)
-	%GearBtn.mouse_entered.connect(_play_hover_sfx)
-	%GearBtn.pressed.connect(_on_gear_pressed)
 	_drop_in_signs()
 
 
@@ -159,12 +157,6 @@ func _show_toast(message: String) -> void:
 
 
 # --- corner buttons -------------------------------------------------------
-
-func _on_gear_pressed() -> void:
-	_show_toast("SETTINGS - COMING SOON")
-	for sign_node in _signs:
-		sign_node.impulse(randf_range(-0.09, 0.09))
-
 
 func _on_sound_toggled(muted: bool) -> void:
 	_apply_mute_icon(muted)

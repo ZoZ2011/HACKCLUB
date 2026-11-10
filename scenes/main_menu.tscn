@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
 [ext_resource type="Script" path="res://scripts/hanging_sign.gd" id="2_swing"]
@@ -12,8 +12,6 @@
 [ext_resource type="Texture2D" path="res://assets/btn_pressed.png" id="10_bp"]
 [ext_resource type="Texture2D" path="res://assets/title_sign.png" id="11_ts"]
 [ext_resource type="Texture2D" path="res://assets/chain.png" id="12_chn"]
-[ext_resource type="Texture2D" path="res://assets/icon_gear.png" id="13_ig"]
-[ext_resource type="Texture2D" path="res://assets/icon_gear_hover.png" id="14_igh"]
 [ext_resource type="Texture2D" path="res://assets/icon_sound_on.png" id="15_is"]
 [ext_resource type="Texture2D" path="res://assets/icon_sound_on_hover.png" id="16_ish"]
 [ext_resource type="FontFile" path="res://assets/ts_serif.ttf" id="19_fnt"]
@@ -341,17 +339,6 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("19_fnt")
 theme_override_font_sizes/font_size = 20
 text = "COMING SOON"
-
-[node name="GearBtn" type="TextureButton" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1056.0
-offset_top = 601.0
-offset_right = 1116.0
-offset_bottom = 661.0
-focus_mode = 0
-texture_normal = ExtResource("13_ig")
-texture_hover = ExtResource("14_igh")
 
 [node name="SoundBtn" type="TextureButton" parent="."]
 unique_name_in_owner = true
