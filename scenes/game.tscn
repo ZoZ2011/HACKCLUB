@@ -1,0 +1,502 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_g"]
+[ext_resource type="Texture2D" path="res://assets/bg_menu.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud1.png" id="3_c1"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud2.png" id="4_c2"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud4.png" id="5_c4"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud5.png" id="6_c5"]
+[ext_resource type="Texture2D" path="res://assets/game/column.png" id="7_col"]
+[ext_resource type="Texture2D" path="res://assets/game/mage_idle_f0.png" id="8_m0"]
+[ext_resource type="Texture2D" path="res://assets/game/mage_idle_f1.png" id="9_m1"]
+[ext_resource type="Texture2D" path="res://assets/game/mage_idle_f2.png" id="10_m2"]
+[ext_resource type="Texture2D" path="res://assets/game/mage_idle_f3.png" id="11_m3"]
+[ext_resource type="Texture2D" path="res://assets/game/mage_hit_f0.png" id="12_mh"]
+[ext_resource type="Texture2D" path="res://assets/game/heart_full.png" id="13_hf"]
+[ext_resource type="Texture2D" path="res://assets/game/heart_empty.png" id="14_he"]
+[ext_resource type="Texture2D" path="res://assets/title_sign.png" id="15_ts"]
+[ext_resource type="Texture2D" path="res://assets/btn_normal.png" id="16_bn"]
+[ext_resource type="Texture2D" path="res://assets/btn_hover.png" id="17_bh"]
+[ext_resource type="Texture2D" path="res://assets/btn_pressed.png" id="18_bp"]
+[ext_resource type="FontFile" path="res://assets/ts_serif.ttf" id="19_f"]
+[ext_resource type="AudioStream" path="res://assets/sfx/knifeSlice.ogg" id="20_cast"]
+[ext_resource type="AudioStream" path="res://assets/sfx/chop.ogg" id="21_hit"]
+[ext_resource type="AudioStream" path="res://assets/sfx/bong_001.ogg" id="22_hurt"]
+[ext_resource type="AudioStream" path="res://assets/sfx/handleCoins.ogg" id="23_coin"]
+[ext_resource type="AudioStream" path="res://assets/sfx/confirmation_001.ogg" id="24_clr"]
+[ext_resource type="AudioStream" path="res://assets/sfx/drop_001.ogg" id="25_over"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mage"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_m0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_m1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_m2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_m3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_mh")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_g")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1200.0
+offset_bottom = 675.0
+mouse_filter = 2
+texture = ExtResource("2_bg")
+
+[node name="Clouds" type="Node2D" parent="."]
+
+[node name="CloudA" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(180, 90)
+texture = ExtResource("4_c2")
+
+[node name="CloudB" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(860, 65)
+texture = ExtResource("5_c4")
+
+[node name="CloudC" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(330, 160)
+texture = ExtResource("6_c5")
+
+[node name="CloudD" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(1060, 185)
+texture = ExtResource("3_c1")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="GateColumn" type="Sprite2D" parent="World"]
+position = Vector2(36, 590)
+texture = ExtResource("7_col")
+
+[node name="Mage" type="AnimatedSprite2D" parent="World"]
+position = Vector2(150, 505)
+sprite_frames = SubResource("SpriteFrames_mage")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Muzzle" type="Marker2D" parent="World"]
+position = Vector2(196, 458)
+
+[node name="Projectiles" type="Node2D" parent="World"]
+
+[node name="Enemies" type="Node2D" parent="World"]
+
+[node name="LevelSign" type="NinePatchRect" parent="."]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 216.0
+offset_bottom = 80.0
+mouse_filter = 2
+texture = ExtResource("15_ts")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="LevelLabel" type="Label" parent="LevelSign"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 26
+text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hearts" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 26.0
+offset_top = 88.0
+offset_right = 200.0
+offset_bottom = 126.0
+theme_override_constants/separation = 8
+
+[node name="Heart1" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(40, 36)
+layout_mode = 2
+texture = ExtResource("13_hf")
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(40, 36)
+layout_mode = 2
+texture = ExtResource("13_hf")
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(40, 36)
+layout_mode = 2
+texture = ExtResource("13_hf")
+stretch_mode = 5
+
+[node name="SoulsSign" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+offset_left = 1000.0
+offset_top = 12.0
+offset_right = 1184.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = ExtResource("15_ts")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="SoulsLabel" type="Label" parent="SoulsSign"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 20
+text = "SOULS 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Announce" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+offset_left = 200.0
+offset_top = 230.0
+offset_right = 1000.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(1, 0.97, 0.88, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 60
+text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 648.0
+offset_right = 1190.0
+offset_bottom = 672.0
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 0.6)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 0.8)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 14
+text = "ESC = MENU"
+
+[node name="HurtFlash" type="ColorRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.75, 0.1, 0.05, 0.35)
+
+[node name="ClearPanel" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 370.0
+offset_top = 200.0
+offset_right = 830.0
+offset_bottom = 465.0
+texture = ExtResource("15_ts")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="ClearPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ClearTitle" type="Label" parent="ClearPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL 1 CLEARED!"
+horizontal_alignment = 1
+
+[node name="ClearSouls" type="Label" parent="ClearPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 20
+text = "SOULS COLLECTED: 0"
+horizontal_alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="ClearPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NextBtn" type="TextureButton" parent="ClearPanel/VBox/BtnRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+focus_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("16_bn")
+texture_pressed = ExtResource("18_bp")
+texture_hover = ExtResource("17_bh")
+
+[node name="Label" type="Label" parent="ClearPanel/VBox/BtnRow/NextBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 22
+text = "NEXT LEVEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryBtn" type="TextureButton" parent="ClearPanel/VBox/BtnRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+focus_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("16_bn")
+texture_pressed = ExtResource("18_bp")
+texture_hover = ExtResource("17_bh")
+
+[node name="Label" type="Label" parent="ClearPanel/VBox/BtnRow/RetryBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 22
+text = "RETRY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuBtn" type="TextureButton" parent="ClearPanel/VBox/BtnRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+focus_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("16_bn")
+texture_pressed = ExtResource("18_bp")
+texture_hover = ExtResource("17_bh")
+
+[node name="Label" type="Label" parent="ClearPanel/VBox/BtnRow/MenuBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 22
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OverPanel" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 370.0
+offset_top = 200.0
+offset_right = 830.0
+offset_bottom = 465.0
+texture = ExtResource("15_ts")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="OverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="OverTitle" type="Label" parent="OverPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 32
+text = "THE MAGIC FADES..."
+horizontal_alignment = 1
+
+[node name="OverSub" type="Label" parent="OverPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 18
+text = "YOU REACHED LEVEL 1"
+horizontal_alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="OverPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Retry2Btn" type="TextureButton" parent="OverPanel/VBox/BtnRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+focus_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("16_bn")
+texture_pressed = ExtResource("18_bp")
+texture_hover = ExtResource("17_bh")
+
+[node name="Label" type="Label" parent="OverPanel/VBox/BtnRow/Retry2Btn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 22
+text = "RETRY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu2Btn" type="TextureButton" parent="OverPanel/VBox/BtnRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+focus_mode = 0
+ignore_texture_size = true
+stretch_mode = 0
+texture_normal = ExtResource("16_bn")
+texture_pressed = ExtResource("18_bp")
+texture_hover = ExtResource("17_bh")
+
+[node name="Label" type="Label" parent="OverPanel/VBox/BtnRow/Menu2Btn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("19_f")
+theme_override_font_sizes/font_size = 22
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SfxCast" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("20_cast")
+volume_db = -6.0
+
+[node name="SfxHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("21_hit")
+volume_db = -6.0
+
+[node name="SfxHurt" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("22_hurt")
+volume_db = -5.0
+
+[node name="SfxCoin" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("23_coin")
+volume_db = -8.0
+
+[node name="SfxClear" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("24_clr")
+volume_db = -5.0
+
+[node name="SfxOver" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("25_over")
+volume_db = -6.0

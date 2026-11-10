@@ -1,0 +1,126 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_scr"]
+[ext_resource type="Texture2D" path="res://assets/game/imp_f0.png" id="2_i0"]
+[ext_resource type="Texture2D" path="res://assets/game/imp_f1.png" id="3_i1"]
+[ext_resource type="Texture2D" path="res://assets/game/imp_f2.png" id="4_i2"]
+[ext_resource type="Texture2D" path="res://assets/game/imp_f3.png" id="5_i3"]
+[ext_resource type="Texture2D" path="res://assets/game/wogol_f0.png" id="6_w0"]
+[ext_resource type="Texture2D" path="res://assets/game/wogol_f1.png" id="7_w1"]
+[ext_resource type="Texture2D" path="res://assets/game/wogol_f2.png" id="8_w2"]
+[ext_resource type="Texture2D" path="res://assets/game/wogol_f3.png" id="9_w3"]
+[ext_resource type="Texture2D" path="res://assets/game/chort_f0.png" id="10_c0"]
+[ext_resource type="Texture2D" path="res://assets/game/chort_f1.png" id="11_c1"]
+[ext_resource type="Texture2D" path="res://assets/game/chort_f2.png" id="12_c2"]
+[ext_resource type="Texture2D" path="res://assets/game/chort_f3.png" id="13_c3"]
+[ext_resource type="Texture2D" path="res://assets/game/pumpkin_f0.png" id="14_p0"]
+[ext_resource type="Texture2D" path="res://assets/game/pumpkin_f1.png" id="15_p1"]
+[ext_resource type="Texture2D" path="res://assets/game/pumpkin_f2.png" id="16_p2"]
+[ext_resource type="Texture2D" path="res://assets/game/pumpkin_f3.png" id="17_p3"]
+[ext_resource type="Texture2D" path="res://assets/game/necro_f0.png" id="18_n0"]
+[ext_resource type="Texture2D" path="res://assets/game/necro_f1.png" id="19_n1"]
+[ext_resource type="Texture2D" path="res://assets/game/necro_f2.png" id="20_n2"]
+[ext_resource type="Texture2D" path="res://assets/game/necro_f3.png" id="21_n3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_i3")
+}],
+"loop": true,
+"name": &"imp",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_w3")
+}],
+"loop": true,
+"name": &"wogol",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_c0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_c1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_c2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_c3")
+}],
+"loop": true,
+"name": &"chort",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_p1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_p3")
+}],
+"loop": true,
+"name": &"pumpkin",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_n0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_n1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_n3")
+}],
+"loop": true,
+"name": &"necro",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c"]
+radius = 24.0
+
+[node name="Enemy" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_scr")
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e")
+animation = &"imp"
+
+[node name="Col" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c")

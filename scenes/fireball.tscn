@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_scr"]
+[ext_resource type="Texture2D" path="res://assets/game/bolt.png" id="2_bolt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b"]
+radius = 10.0
+
+[node name="Fireball" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_scr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.62, 0.3, 1)
+texture = ExtResource("2_bolt")
+
+[node name="Col" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b")
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+z_index = -1
+emitting = true
+amount = 10
+lifetime = 0.28
+local_coords = false
+texture = ExtResource("2_bolt")
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 45.0
+spread = 180.0
+scale_amount_min = 0.4
+scale_amount_max = 0.8
+color = Color(1, 0.62, 0.3, 0.65)
+
+[node name="Burst" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.32
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+texture = ExtResource("2_bolt")
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.0
+initial_velocity_max = 170.0
+spread = 180.0
+scale_amount_min = 0.6
+scale_amount_max = 1.2
+color = Color(1, 0.55, 0.25, 0.9)

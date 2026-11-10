@@ -1,0 +1,341 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_select.gd" id="1_scr"]
+[ext_resource type="Script" path="res://scripts/hanging_sign.gd" id="2_swing"]
+[ext_resource type="Texture2D" path="res://assets/bg_menu.png" id="3_bg"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud1.png" id="4_c1"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud2.png" id="5_c2"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud4.png" id="6_c4"]
+[ext_resource type="Texture2D" path="res://assets/clouds/cloud5.png" id="7_c5"]
+[ext_resource type="Texture2D" path="res://assets/title_sign.png" id="8_ts"]
+[ext_resource type="Texture2D" path="res://assets/btn_normal.png" id="9_bn"]
+[ext_resource type="Texture2D" path="res://assets/btn_hover.png" id="10_bh"]
+[ext_resource type="Texture2D" path="res://assets/btn_pressed.png" id="11_bp"]
+[ext_resource type="Texture2D" path="res://assets/chain.png" id="12_chn"]
+[ext_resource type="FontFile" path="res://assets/ts_serif.ttf" id="13_f"]
+[ext_resource type="AudioStream" path="res://assets/sfx/select_001.ogg" id="14_s1"]
+[ext_resource type="AudioStream" path="res://assets/sfx/select_002.ogg" id="15_s2"]
+[ext_resource type="AudioStream" path="res://assets/sfx/bong_001.ogg" id="16_b1"]
+[ext_resource type="AudioStream" path="res://assets/sfx/confirmation_001.ogg" id="17_c1"]
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_scr")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 675.0
+mouse_filter = 2
+texture = ExtResource("3_bg")
+
+[node name="Clouds" type="Node2D" parent="."]
+
+[node name="CloudA" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(180, 90)
+texture = ExtResource("5_c2")
+
+[node name="CloudB" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(860, 65)
+texture = ExtResource("6_c4")
+
+[node name="CloudC" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(330, 160)
+texture = ExtResource("7_c5")
+
+[node name="CloudD" type="Sprite2D" parent="Clouds"]
+unique_name_in_owner = true
+position = Vector2(1060, 185)
+texture = ExtResource("4_c1")
+
+[node name="TitleSign" type="Node2D" parent="."]
+position = Vector2(600, 0)
+script = ExtResource("2_swing")
+sway_amplitude = 0.015
+sway_speed = 1.0
+stiffness = 25.0
+damping = 4.5
+
+[node name="TitlePlank" type="NinePatchRect" parent="TitleSign"]
+layout_mode = 0
+offset_left = -170.0
+offset_top = 24.0
+offset_right = 170.0
+offset_bottom = 134.0
+mouse_filter = 2
+texture = ExtResource("8_ts")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="TitleLabel" type="Label" parent="TitleSign/TitlePlank"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 40
+text = "LEVELS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChainL" type="Sprite2D" parent="TitleSign"]
+position = Vector2(-93, 0)
+scale = Vector2(1, 0.7059)
+texture = ExtResource("12_chn")
+centered = false
+
+[node name="ChainR" type="Sprite2D" parent="TitleSign"]
+position = Vector2(72, 0)
+scale = Vector2(1, 0.7059)
+texture = ExtResource("12_chn")
+centered = false
+
+[node name="L1" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 235.0
+offset_top = 260.0
+offset_right = 455.0
+offset_bottom = 340.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L1Label" type="Label" parent="L1"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="L2" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 490.0
+offset_top = 260.0
+offset_right = 710.0
+offset_bottom = 340.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L2Label" type="Label" parent="L2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="L3" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 745.0
+offset_top = 260.0
+offset_right = 965.0
+offset_bottom = 340.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L3Label" type="Label" parent="L3"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="L4" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 235.0
+offset_top = 400.0
+offset_right = 455.0
+offset_bottom = 480.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L4Label" type="Label" parent="L4"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="L5" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 490.0
+offset_top = 400.0
+offset_right = 710.0
+offset_bottom = 480.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L5Label" type="Label" parent="L5"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="L6" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 745.0
+offset_top = 400.0
+offset_right = 965.0
+offset_bottom = 480.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="L6Label" type="Label" parent="L6"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 48
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackSign" type="Node2D" parent="."]
+position = Vector2(600, 555)
+script = ExtResource("2_swing")
+sway_amplitude = 0.03
+sway_speed = 1.5
+stiffness = 30.0
+damping = 5.0
+
+[node name="BackBtn" type="TextureButton" parent="BackSign"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -100.0
+offset_top = 24.0
+offset_right = 100.0
+offset_bottom = 94.0
+focus_mode = 0
+texture_normal = ExtResource("9_bn")
+texture_pressed = ExtResource("11_bp")
+texture_hover = ExtResource("10_bh")
+
+[node name="Label" type="Label" parent="BackSign/BackBtn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.914, 0.843, 0.694, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.1, 0.07, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("13_f")
+theme_override_font_sizes/font_size = 30
+text = "BACK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChainL" type="Sprite2D" parent="BackSign"]
+position = Vector2(-93, 0)
+scale = Vector2(1, 0.7059)
+texture = ExtResource("12_chn")
+centered = false
+
+[node name="ChainR" type="Sprite2D" parent="BackSign"]
+position = Vector2(72, 0)
+scale = Vector2(1, 0.7059)
+texture = ExtResource("12_chn")
+centered = false
+
+[node name="SfxHover" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("14_s1")
+volume_db = -6.0
+
+[node name="SfxPress" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("16_b1")
+volume_db = -5.0
+
+[node name="SfxConfirm" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("17_c1")
+volume_db = -5.0
